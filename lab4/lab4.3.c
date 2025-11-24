@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        // Дочірній процес
+        printf("Дочірній процес завершується...\n");
+        exit(0); // завершує процес
+    } else {
+        // Батьківський процес
+        wait(NULL); // чекає завершення дитини
+        printf("Батьківський процес дочекався завершення.\n");
+    }
+    return 0;
+}
