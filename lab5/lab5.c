@@ -1,11 +1,10 @@
-// task1_pipe_basic.c
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
 
 int main() {
-    int fd[2]; // fd[0] - для читання, fd[1] - для запису
+    int fd[2];
     if (pipe(fd) == -1) {
         perror("pipe");
         return 1;
@@ -18,8 +17,7 @@ int main() {
     }
 
     if (pid == 0) {
-        // Дочірній процес: читає з pipe
-        close(fd[1]); // закриваємо сторону запису
+        close(fd[1]);
         char buf[128];
         ssize_t n = read(fd[0], buf, sizeof(buf)-1);
         if (n >= 0) {
@@ -31,8 +29,7 @@ int main() {
         close(fd[0]);
         return 0;
     } else {
-        // Батьківський процес: пише в pipe
-        close(fd[0]); // закриваємо сторону читання
+        close(fd[0]);
         const char *msg = "Hello from parent";
         if (write(fd[1], msg, strlen(msg)) == -1) {
             perror("write");

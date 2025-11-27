@@ -2,23 +2,21 @@
 #include <stdio.h>
 
 int main() {
-    STARTUPINFO si;              // структура для параметрів запуску
-    PROCESS_INFORMATION pi;      // структура для інформації про процес
-
-    ZeroMemory(&si, sizeof(si)); // обнуляємо пам’ять
-    si.cb = sizeof(si);          // задаємо розмір структури
+    STARTUPINFO si;             
+    PROCESS_INFORMATION pi;      
+    ZeroMemory(&si, sizeof(si)); 
+    si.cb = sizeof(si);          
     ZeroMemory(&pi, sizeof(pi));
 
     if (CreateProcess(
-        "C:\\Windows\\System32\\notepad.exe", // програма для запуску
-        NULL, NULL, NULL, FALSE,              // параметри безпеки
-        0, NULL, NULL, &si, &pi))             // додаткові параметри
-    {
-        printf("Процес успішно створено! PID=%lu\n", pi.dwProcessId);
-        CloseHandle(pi.hProcess); // закриваємо дескриптори
+        "C:\\Windows\\System32\\notepad.exe", 
+        NULL, NULL, NULL, FALSE,              
+        0, NULL, NULL, &si, &pi))             
+        printf("успішно PID=%lu\n", pi.dwProcessId);
+        CloseHandle(pi.hProcess); 
         CloseHandle(pi.hThread);
     } else {
-        printf("Помилка створення процесу (%lu)\n", GetLastError());
+        printf("помилка (%lu)\n", GetLastError());
     }
 
     return 0;

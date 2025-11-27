@@ -1,4 +1,3 @@
-// task4_pipe_numbers_sum.c
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -18,9 +17,7 @@ int main() {
     if (pid == -1) { perror("fork"); return 1; }
 
     if (pid == 0) {
-        // Дитина: читає масив і рахує суму
-        close(fd[1]); // не пишемо
-        // Спершу читаємо кількість елементів (щоб знати скільки байтів чекати)
+        close(fd[1]);
         size_t n = 0;
         if (read(fd[0], &n, sizeof(n)) != sizeof(n)) {
             perror("read count");
@@ -39,8 +36,7 @@ int main() {
         printf("Sum = %lld\n", sum);
         return 0;
     } else {
-        // Батько: надсилає спочатку кількість, потім елементи
-        close(fd[0]); // не читаємо
+        close(fd[0]);
         if (write(fd[1], &count, sizeof(count)) != sizeof(count)) {
             perror("write count");
         }

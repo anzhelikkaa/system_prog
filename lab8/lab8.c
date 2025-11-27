@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 int main() {
-    // Виділення пам'яті: 10 * 4 байти (зазвичай) = 40 байт
     int *arr = (int*)malloc(10 * sizeof(int));
 
     if (arr == NULL) {
@@ -10,7 +9,6 @@ int main() {
         return 1;
     }
 
-    // Заповнення та виведення
     printf("Malloc array: ");
     for (int i = 0; i < 10; i++) {
         arr[i] = i + 1;
@@ -18,7 +16,6 @@ int main() {
     }
     printf("\n");
 
-    // Звільнення пам'яті
     free(arr);
     return 0;
 }

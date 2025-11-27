@@ -13,7 +13,6 @@ int main() {
 
     if (students == NULL) return 1;
 
-    // Записуємо дані (імітація вводу)
     strcpy(students[0].name, "Ivan");
     students[0].age = 20;
 

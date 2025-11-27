@@ -6,20 +6,16 @@ HANDLE hMutex;
 DWORD WINAPI WriteToFile(LPVOID lpParam) {
     int threadNum = *(int*)lpParam;
     
-    // Очікування захоплення м'ютекса (INFINITE - чекати вічно, поки не звільниться)
     WaitForSingleObject(hMutex, INFINITE);
 
-    // --- Критична секція ---
     FILE* file = fopen("log.txt", "a");
     if (file != NULL) {
         fprintf(file, "Thread %d is writing to file...\n", threadNum);
         printf("Thread %d access granted.\n", threadNum);
-        Sleep(100); // Імітація роботи
+        Sleep(100); 
         fclose(file);
     }
-    // -----------------------
-
-    // Звільнення м'ютекса
+   
     ReleaseMutex(hMutex);
     return 0;
 }
@@ -28,7 +24,6 @@ int main() {
     HANDLE threads[3];
     int ids[3] = {1, 2, 3};
 
-    // Створення м'ютекса
     hMutex = CreateMutex(NULL, FALSE, NULL);
 
     for (int i = 0; i < 3; i++) {
